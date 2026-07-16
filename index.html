@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manpreet Singh Vedi | Cloud & DevOps Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfcfb;
+            color: #2d3748;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .tab-active {
+            border-bottom: 3px solid #4a90e2;
+            color: #4a90e2;
+            font-weight: 600;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 
+    Chosen Palette: Calm Professional Horizon 
+    Background: #FDFCFB (Warm Neutral)
+    Text: #2D3748 (Charcoal)
+    Accent: #4A90E2 (Soft Blue)
+    Success: #48BB78 (Subtle Green)
+    -->
+
+    <!-- 
+    Application Structure Plan: 
+    The SPA is structured as a 'Strategic Professional Dashboard'. 
+    1. Header: Instant identification and contact shortcuts.
+    2. Executive Insights (Grid): Key metrics visualized via Bar Charts to show immediate value (efficiency gains, MTTR reduction). 
+    3. Interactive Career Journey (Tabs): Uses a non-linear tabbed interface to allow recruiters to jump between Google, IBM, and JLL roles without infinite scrolling. 
+    4. Skills Radar: A visual representation of the candidate's balanced expertise across Cloud, IaC, and AI.
+    5. Knowledge Base: Clean list for Certs and Education.
+    WHY: Recruiters spend seconds on a resume. This layout prioritizes 'Impact First' through visuals before asking them to read the deep technical details.
+    -->
+
+    <!-- 
+    Visualization & Content Choices: 
+    - Impact Metrics -> Bar Chart (Chart.js) -> Compare efficiency gains across different roles.
+    - Skill Distribution -> Radar Chart (Chart.js) -> Show the breadth of Cloud/DevOps competencies.
+    - Career Details -> Dynamic Content Toggling (Vanilla JS) -> Allows focused reading on specific roles.
+    - NO SVG: Used Unicode symbols (⚡, 🛠️, ☁️) and Tailwind border utilities for UI elements.
+    - Library: Chart.js for canvas-based responsive rendering.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="sticky top-0 z-50 glass-card border-b py-4">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-bold tracking-tight text-blue-600">Manpreet Singh Vedi</span>
+                <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-semibold uppercase">Cloud & DevOps</span>
+            </div>
+            <div class="mt-4 md:mt-0 flex space-x-6 text-sm font-medium">
+                <a href="mailto:manpreetsinghvedi15@gmail.com" class="hover:text-blue-600 transition-colors">✉️ Email</a>
+                <span class="text-gray-300">|</span>
+                <span class="text-gray-600">📍 Aurangabad, India</span>
+                <span class="text-gray-300">|</span>
+                <span class="text-gray-600">📞 +91 7798965899</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-10">
+        
+        <!-- Summary Introduction -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Executive Overview</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div class="space-y-4">
+                    <p class="text-lg leading-relaxed text-gray-600">
+                        Strategic Cloud & DevOps Engineer with **8+ years** of professional IT experience. I specialize in orchestrating global cloud-native infrastructures on **Google Cloud Platform (GCP)** using Terraform, Puppet, and Kubernetes.
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-600">
+                        My approach blends high-availability platform architecture with cutting-edge **AI-native developer frameworks** like KIRO IDE and K8sGPT to automate troubleshooting and optimize performance.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-4">
+                        <span class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover-lift">☁️ GCP</span>
+                        <span class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover-lift">🏗️ Terraform</span>
+                        <span class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover-lift">☸️ Kubernetes</span>
+                        <span class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover-lift">🤖 AI Ops</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4 text-center">Quantifiable Operational Impact</h3>
+                    <div class="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-xs text-center text-gray-500 italic">Efficiency gains and time-to-resolution improvements across key roles.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Professional Experience: Interactive Tabs -->
+        <section class="mb-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-gray-200">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">Career Journey</h2>
+                    <p class="text-gray-500 mt-2">Interactive exploration of roles from Application Dev to CloudOps.</p>
+                </div>
+                <div class="flex mt-6 md:mt-0 space-x-1 overflow-x-auto">
+                    <button onclick="switchTab('google')" id="tab-google" class="px-6 py-3 text-sm font-medium transition-all tab-active whitespace-nowrap">Google (via JLL)</button>
+                    <button onclick="switchTab('ibm')" id="tab-ibm" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-blue-600 whitespace-nowrap">IBM</button>
+                    <button onclick="switchTab('jll_prev')" id="tab-jll_prev" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-blue-600 whitespace-nowrap">JLL (Early)</button>
+                </div>
+            </div>
+
+            <div id="content-google" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2 space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="h-12 w-12 bg-blue-50 flex items-center justify-center rounded-xl text-xl font-bold text-blue-600">G</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Cloud Infrastructure Engineer</h3>
+                                <p class="text-blue-600 font-semibold">JLL Deputed to Google Account <span class="text-gray-400 font-normal ml-2">2025 — Present</span></p>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Orchestrating global CloudTririga workloads on **GCP** managing **100+ Compute Engine VMs**, Cloud Storage, and **GKE clusters**.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Automating provisioning for **50+ cloud environments** using Terraform & Puppet, reducing manual cycles by **60%**.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Leading zero-downtime application upgrades to Platform **5.0.0** and security hardening via **Ganapati & Miracle**.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-dashed border-gray-300">
+                        <h4 class="font-bold text-gray-800 mb-4">Tech Stack Highlights</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">GKE</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">Terraform</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">Puppet</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">KIRO IDE</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">K8sGPT</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">VPC Peering</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-ibm" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2 space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="h-12 w-12 bg-blue-50 flex items-center justify-center rounded-xl text-xl font-bold text-blue-900">IBM</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Senior DevOps & Platform Engineer</h3>
+                                <p class="text-blue-600 font-semibold">IBM India <span class="text-gray-400 font-normal ml-2">2021 — 2025</span></p>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Managed optimized infrastructure across **30+ Agile sprints** for Fortune 500 clients (Walmart, Ericsson).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Engineered complex relational database schemas and application middleware to remove operational bottlenecks.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Improved incident resolution rates by **25%** through cross-functional L3 support leadership.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-dashed border-gray-300">
+                        <h4 class="font-bold text-gray-800 mb-4">Tech Stack Highlights</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">RBAC</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">Agile/Scrum</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">DB Schemas</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">Middleware</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">L3 Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-jll_prev" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2 space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="h-12 w-12 bg-blue-50 flex items-center justify-center rounded-xl text-xl font-bold text-red-600">JLL</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Platform & Systems Engineer</h3>
+                                <p class="text-blue-600 font-semibold">Jones Lang LaSalle <span class="text-gray-400 font-normal ml-2">2018 — 2021</span></p>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Deployed **Instana APM** for proactive monitoring, reducing MTTR by **40%**.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Automated alerting rules to catch memory leaks and CPU spikes preemptively.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-3 mt-1 text-blue-500">▶</span>
+                                <span>Acted as technical bridge for environment recovery and software deployments.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-dashed border-gray-300">
+                        <h4 class="font-bold text-gray-800 mb-4">Tech Stack Highlights</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">Instana</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">APM</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">SRE</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">Alerting</span>
+                            <span class="bg-white px-3 py-1 rounded border text-xs font-semibold">Backups</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competency Matrix -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Competency Matrix</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-1 glass-card p-8 rounded-2xl text-center flex flex-col justify-center items-center">
+                    <h3 class="text-lg font-bold mb-6">Expertise Radar</h3>
+                    <div class="chart-container">
+                        <canvas id="skillRadar"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-6">Balanced proficiency across core cloud engineering domains.</p>
+                </div>
+
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift">
+                        <h4 class="text-blue-600 font-bold mb-3 flex items-center">
+                            <span class="mr-2">🏗️</span> Infrastructure as Code
+                        </h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">Enterprise-grade Terraform automation, Puppet/Ansible state declaration, and Multi-Region Engineering (MREF).</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift">
+                        <h4 class="text-blue-600 font-bold mb-3 flex items-center">
+                            <span class="mr-2">☸️</span> Orchestration
+                        </h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">Kubernetes (GKE) architecture, container lifecycle management, and high-availability cluster scaling.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift">
+                        <h4 class="text-blue-600 font-bold mb-3 flex items-center">
+                            <span class="mr-2">🛡️</span> DevSecOps
+                        </h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">Automated vulnerability scanning (Ganapati, Miracle), IAM hardening, and security firewall compliance.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift">
+                        <h4 class="text-blue-600 font-bold mb-3 flex items-center">
+                            <span class="mr-2">🤖</span> AI Operations
+                        </h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">Leveraging KIRO IDE for rapid development and K8sGPT for autonomous cluster diagnostics and troubleshooting.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certs & Education -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Professional Certifications</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-white p-4 rounded-xl border border-gray-100">
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-yellow-400 mr-3"></span>
+                            <span class="font-semibold">Google Cloud Certified: ACE</span>
+                        </div>
+                        <span class="text-xs font-bold uppercase text-yellow-600">In-Progress</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-white p-4 rounded-xl border border-gray-100">
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-yellow-400 mr-3"></span>
+                            <span class="font-semibold">HashiCorp Certified: Terraform</span>
+                        </div>
+                        <span class="text-xs font-bold uppercase text-yellow-600">In-Progress</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-white p-4 rounded-xl border border-gray-100">
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-yellow-400 mr-3"></span>
+                            <span class="font-semibold">Certified Kubernetes Administrator</span>
+                        </div>
+                        <span class="text-xs font-bold uppercase text-yellow-600">Target Q3</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Education</h2>
+                <div class="bg-blue-600 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-lg font-bold">B.Tech (Engineering)</h3>
+                        <p class="text-blue-100">MIT Aurangabad</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold">6.98</p>
+                                <p class="text-xs uppercase text-blue-200 tracking-widest">CGPA</p>
+                            </div>
+                            <div class="h-10 w-px bg-blue-400"></div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold">7.15</p>
+                                <p class="text-xs uppercase text-blue-200 tracking-widest">SGPA</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Background Decoration -->
+                    <div class="absolute -bottom-10 -right-10 h-40 w-40 bg-blue-500 rounded-full opacity-20"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-12 mt-20">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-white text-xl font-bold mb-4">Let's build reliable cloud ecosystems.</h3>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                <a href="#" class="hover:text-white transition-colors">Naukri</a>
+                <a href="#" class="hover:text-white transition-colors">GitHub</a>
+            </div>
+            <p class="text-sm">© 2025 Manpreet Singh Vedi. Designed for modern engineering recruitment.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Management
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Remove active style from all tabs
+            document.querySelectorAll('nav button, div button').forEach(el => {
+                el.classList.remove('tab-active');
+                if (el.id && el.id.startsWith('tab-')) {
+                    el.classList.add('text-gray-500');
+                }
+            });
+
+            // Show selected content
+            const activeContent = document.getElementById('content-' + tabId);
+            if (activeContent) activeContent.classList.remove('hidden');
+
+            // Set active style
+            const activeTab = document.getElementById('tab-' + tabId);
+            if (activeTab) {
+                activeTab.classList.add('tab-active');
+                activeTab.classList.remove('text-gray-500');
+            }
+        }
+
+        // Charts Initialization
+        function initCharts() {
+            // Impact Bar Chart
+            const ctxImpact = document.getElementById('impactChart').getContext('2d');
+            new Chart(ctxImpact, {
+                type: 'bar',
+                data: {
+                    labels: ['Provisioning Time', 'Incident Resolution', 'MTTR (SRE Ops)', 'Dev Authoring'],
+                    datasets: [{
+                        label: '% Improvement/Reduction',
+                        data: [60, 25, 40, 30],
+                        backgroundColor: [
+                            'rgba(74, 144, 226, 0.7)',
+                            'rgba(72, 187, 120, 0.7)',
+                            'rgba(237, 137, 54, 0.7)',
+                            'rgba(159, 122, 234, 0.7)'
+                        ],
+                        borderRadius: 8,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `-${context.parsed.x}% Improvement`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            grid: { display: false }
+                        },
+                        y: { 
+                            grid: { display: false },
+                            ticks: { font: { weight: 'bold' } }
+                        }
+                    }
+                }
+            });
+
+            // Skill Radar Chart
+            const ctxRadar = document.getElementById('skillRadar').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Cloud (GCP)', 'IaC (Terraform)', 'K8s / Containers', 'Security / Ops', 'AI / Automation'],
+                    datasets: [{
+                        label: 'Proficiency',
+                        data: [95, 90, 85, 88, 80],
+                        fill: true,
+                        backgroundColor: 'rgba(74, 144, 226, 0.2)',
+                        borderColor: '#4a90e2',
+                        pointBackgroundColor: '#4a90e2',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#4a90e2'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: { borderWidth: 3 }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { display: true },
+                            suggestedMin: 50,
+                            suggestedMax: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Initialize on load
+        window.onload = initCharts;
+    </script>
+</body>
+</html>
